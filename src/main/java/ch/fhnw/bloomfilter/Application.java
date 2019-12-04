@@ -11,6 +11,11 @@ public class Application {
 
         BloomFilter bloomFilter = new BloomFilter(0.01);
 
+        System.out.println("Anzahl Wörter: " + bloomFilter.getN());
+        System.out.println("gewünschte maximale Fehlerwahrscheinlichkeit: " + (int) (bloomFilter.getP()*100) + "%");
+        System.out.println("Anzahl Hash-Funktionen: " + bloomFilter.getK());
+        System.out.println("Anzahl Testwerte: " + bloomFilter.getZ());
+        System.out.println("Zuverlässigkeit: " + bloomFilter.testReliability());
 
     }
 }
