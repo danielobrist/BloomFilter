@@ -33,7 +33,7 @@ Ein Bloom-Filter ist ein Array von \textit{m} Bits, die anfangs alle auf 0/false
 Beispiele sind NoSQL-Datenbanken wie BigTable, Apache HBase und Apache Cassandra. Diese Datenbanken verwenden Bloom-Filter für das Nachschlagen eines Schlüssels in einer grösseren Tabelle. Der Bloom-Filter wird dabei der eigentlichen Suche vorgeschaltet um unnötige Suchvorgänge einzusparen. Nur wenn der Wert gemäss Bloom-Filter in der Tablle enthalten sein könnte, wird die aufwändige Suche in den Datenwerten angestossen.
 
 \section{Testen der Fehlerwahrscheinlichkeit}
-In this section we describe the results.
+Um die Zuverlässigkeit des Bloom-Filters zu testen, verwenden wir nach dem Einlesen eine grosse Anzahl Testwerte. Dabei überprüfen wir in der Methode \textit{testReliability()} und mit einer einfachen \textit{contians()}-Abfrage, ob die Testwerte (von welchen der Bloom-Filter behauptet, dass sie in der Liste seien) auch tatsächlich in der Liste sind.
 
 \end{document}
 This is never printed
