@@ -1,16 +1,12 @@
 package ch.fhnw.bloomfilter;
 
 import com.google.common.hash.HashCode;
-import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class BloomFilter {
 
@@ -47,7 +43,7 @@ public class BloomFilter {
         }
     }
 
-    //Prüfmethode, ob ein String in der Wortliste enthalten ist
+    // Prüfmethode, ob ein String in der Wortliste enthalten ist
     public boolean stringIsInList(String testString) {
         for(int j = 0; j < k; j++) { //alle Hashfunktionen
             HashCode hash = Hashing.murmur3_128(j).hashString(testString, Charset.defaultCharset());
@@ -58,15 +54,15 @@ public class BloomFilter {
         } return true;
     }
 
-    //Zuverlässigkeit anhand von einer grossen Menge an Testwerten überprüfen
+    // Überprüft die Zuverlässigkeit anhand von einer grossen Menge von Testwerten
     public double testReliability() {
-        int numberOfWordsRightlyDetected = 0;
-        int numberOfWordsWronglyDetected = 0;
+        int numberOfWordsRightlyDetected = 0;    // "Right"-Positives
+        int numberOfWordsWronglyDetected = 0;    // False-Positives
 
         for(int i = 0; i < testValues.size(); i++) { // Liste mit Testwerten
-
+            // wenn Bloom-Filter für den Testwert positiv ist...
             if(stringIsInList(testValues.get(i))) {
-                // Prüfen, ob der String tatsächlich in der Liste ist
+                // ...dann prüfen, ob der String tatsächlich in der Liste ist
                 if(words.contains(testValues.get(i))) {
                     numberOfWordsRightlyDetected++;
                 } else {
