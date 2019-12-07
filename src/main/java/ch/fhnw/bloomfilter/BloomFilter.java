@@ -4,7 +4,6 @@ import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
@@ -17,15 +16,15 @@ public class BloomFilter {
     int k;
     boolean[] bloomFilter;
 
+    Reader reader = new Reader();
+
     // Liste der einzufügenden Wörter erstellen
-    Reader reader = new Reader("words.txt");
-    ArrayList<String> words = reader.readFile();
+    ArrayList<String> words = reader.readFileIntoArrayList("words.txt");
 
     // Liste der Testwerte erstellen
-    Reader readertestValues = new Reader("testvalues.txt");
-    ArrayList<String> testValues = readertestValues.readFile();
+    ArrayList<String> testValues = reader.readFileIntoArrayList("testvalues.txt");
 
-    public BloomFilter(double p) throws URISyntaxException, IOException {
+    public BloomFilter(double p) throws IOException {
         this.n = words.size();                                      // Anzahl Wörter
         this.z = testValues.size();                                 // Anzahl Testwerte
         this.p = p;                                                 // Fehlerwahscheinlichkeit fix
@@ -73,6 +72,8 @@ public class BloomFilter {
 
         return 100.0/(numberOfWordsRightlyDetected+numberOfWordsWronglyDetected)*numberOfWordsRightlyDetected;
     }
+
+    // getter and setter
 
     public int getN() {
         return n;

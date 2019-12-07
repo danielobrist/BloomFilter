@@ -1,33 +1,32 @@
 package ch.fhnw.bloomfilter;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * Source: parts from https://www.baeldung.com/java-file-to-arraylist
+ */
+
 public class Reader {
-    private File file;
 
-    public Reader (String fileName) throws URISyntaxException {
-            file = getRessourceFile(fileName);
-    }
-
-    public File getRessourceFile(String fileName) throws URISyntaxException {
-        URL filePath = Application.class.getClassLoader().getResource(fileName);
-        return Paths.get(filePath.toURI()).toFile();
-    }
-
-    public ArrayList<String> readFile() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(file));
-
+    public ArrayList<String> readFileIntoArrayList(String fileName) throws IOException {
         ArrayList<String> words = new ArrayList<>();
-        String st;
-        while ((st = br.readLine()) != null) {
-            words.add(st);
+
+        try (FileReader f = new FileReader(Application.class.getClassLoader().getResource(fileName).getFile())) {
+            StringBuffer sb = new StringBuffer();
+            while (f.ready()) {
+                char c = (char) f.read();
+                if (c == '\n') {
+                    words.add(sb.toString());
+                    sb = new StringBuffer();
+                } else {
+                    sb.append(c);
+                }
+            }
+            if (sb.length() > 0) {
+                words.add(sb.toString());
+            }
         }
         return words;
     }
