@@ -4,10 +4,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * Source: parts from https://www.baeldung.com/java-file-to-arraylist
- */
-
 public class Reader {
 
     public ArrayList<String> readFileIntoArrayList(String fileName) throws IOException {
